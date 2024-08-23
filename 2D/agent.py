@@ -2,10 +2,10 @@ from environment import Environment
 
 
 class Agent:
-    def __init__(self, env, start_x, start_y, vision_range=1):
+    def __init__(self, env, vision_range=1):
         self.env: Environment = env
-        self.x = start_x
-        self.y = start_y
+        self.x = env.player_start_x
+        self.y = env.player_start_y
         self.vision_range = vision_range
         self.env.update_cell(x=self.x, y=self.y, value=2)  # Initial position
         self.moves_list = []
@@ -32,4 +32,7 @@ class Agent:
         x_max = min(self.env.width, self.x + self.vision_range + 1)
         y_min = max(0, self.y - self.vision_range)
         y_max = min(self.env.height, self.y + self.vision_range + 1)
-        return self.env.grid[y_min:y_max, x_min:x_max]
+        visible_area = [
+            (x, y) for x in range(x_min, x_max) for y in range(y_min, y_max)
+        ]
+        return visible_area

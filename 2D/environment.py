@@ -12,22 +12,13 @@ class Environment:
     def __init__(
         self,
         matrix: np.ndarray = None,
-        width: int = None,
-        height: int = None,
-        obstacles: list = None,
     ):
         if matrix is not None:
             self.grid = matrix
             self.height, self.width = matrix.shape
-        elif width and height:
-            self.width = width
-            self.height = height
-            self.grid = np.zeros((height, width), dtype=int)
-            self.place_borders()
-            if obstacles:
-                self.place_obstacles(obstacles)
+            self.player_start_y, self.player_start_x = np.argwhere(matrix == 2)[0]
         else:
-            raise ValueError("Please provide a matrix or width and height")
+            raise ValueError("Matrix must be provided")
 
     def place_borders(self):
         self.grid[0, :] = -1  # Top border

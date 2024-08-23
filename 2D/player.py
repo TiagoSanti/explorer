@@ -2,8 +2,8 @@ from agent import Agent
 
 
 class Player(Agent):
-    def __init__(self, env, start_x, start_y, vision_range=1):
-        super().__init__(env, start_x, start_y, vision_range)
+    def __init__(self, env, vision_range=1):
+        super().__init__(env, vision_range)
 
     def prompt_move(self):
         move_dict = {
